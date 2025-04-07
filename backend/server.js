@@ -59,7 +59,7 @@ let loggedInUserEmail = null;
 let loggedInUserName = null;
 
 // API Routes
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Backend API is running!');
 });
 
@@ -129,9 +129,11 @@ app.post('/logout', (req, res) => {
   res.status(200).json({ message: 'Logged out successfully!' });
 });
 
-// Serve React build (client/build)
-const buildPath = path.join(__dirname, '../frontend/emsys/src');
+// Serve React build (corrected path)
+const buildPath = path.join(__dirname, '../frontend/emsys/build');
 app.use(express.static(buildPath));
+
+// Catch-all to serve React's index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
@@ -140,3 +142,4 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
